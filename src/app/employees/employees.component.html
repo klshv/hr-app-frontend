@@ -1,0 +1,36 @@
+<h1>Работники</h1>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">ФИО</th>
+			<th scope="col">Дата трудоустройства</th>
+			<th scope="col">Должность</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let employee of (pagedEmployees$ | async)?.items | slice: 0 : pageSize; index as i" (click)="itemClick($event)" [attr.data-itemid]="employee.id">
+			<th scope="row">{{ (i + 1) + pageSize*(page-1) }}</th>
+			<td class="align-middle">
+				{{ employee.personalInfo.fullName }}
+			</td>
+			<td class="align-middle">{{ employee.hiredDate | date }}</td>
+			<td class="align-middle">{{ employee.position }}</td>
+			<td class="align-middle">
+				<button class="btn btn-sm" style="background-color:transparent;" (click)="updateClick($event)" [attr.data-itemid]="employee.id"> 
+					<fa-icon [icon]="faEdit"></fa-icon> Edit
+				</button>
+				<button class="btn btn-sm" style="background-color:transparent;" (click)="deleteClick($event)" [attr.data-itemid]="employee.id">
+					<fa-icon [icon]="faRemove"></fa-icon> Delete
+				</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<ngb-pagination
+  #pagination 
+  (pageChange)="updatePage($event)"
+  [(page)]="page"
+  [pageSize]="pageSize"
+  [collectionSize]="(totalCount$ | async) ?? 0"></ngb-pagination>
+<div>Всего: {{totalCount$ | async}}</div>

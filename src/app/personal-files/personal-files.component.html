@@ -1,0 +1,25 @@
+<p>personal-files works!</p>
+
+<h1>Личные дела</h1>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">ФИО</th>
+			<th scope="col">Записи</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let personalFile of items | slice: (page-1) * pageSize : page * pageSize; index as i">
+			<th scope="row">{{ (i + 1) + pageSize*(page-1) }}</th>
+			<td>
+				{{ personalFile.employee.personalInfo.fullName }}
+			</td>
+			<td>{{ personalFile.records.length }}</td>
+		</tr>
+	</tbody>
+</table>
+<ngb-pagination
+  [(page)]="page"
+  [pageSize]="pageSize"
+  [collectionSize]="items.length"></ngb-pagination>

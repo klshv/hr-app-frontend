@@ -1,0 +1,40 @@
+<h1>Соискатели</h1>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">ФИО</th>
+			<th scope="col">Дата подачи заявки</th>
+			<th scope="col">Решение</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let applicant of (pagedApplicants$ | async)?.items | slice: 0 : pageSize; index as i" (click)="itemClick($event)" [attr.data-itemid]="applicant.id">
+			<th scope="row">{{ (i + 1) + pageSize*(page-1) }}</th>
+			<td class="align-middle">
+				{{ applicant.personalInfo.fullName }}
+			</td>
+			<td class="align-middle">{{ applicant.appliedDate | date }}</td>
+			<td class="align-middle">{{ applicant.decision }}</td>
+			<td class="align-middle">
+				<button class="btn btn-sm" style="background-color:transparent;" (click)="updateClick($event, applicant)"> 
+					<fa-icon [icon]="faEdit"></fa-icon> Edit
+				</button>
+				<button class="btn btn-sm" style="background-color:transparent;" (click)="deleteClick($event)" [attr.data-itemid]="applicant.id">
+					<fa-icon [icon]="faRemove"></fa-icon> Delete
+				</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<ngb-pagination
+  #pagination 
+  (pageChange)="updatePage($event)"
+  [(page)]="page"
+  [pageSize]="pageSize"
+  [collectionSize]="(totalCount$ | async) ?? 0"></ngb-pagination>
+<div>Всего: {{totalCount$ | async}}</div>
+<app-applicant-edit #editModal>
+	<div>hello</div>
+</app-applicant-edit>

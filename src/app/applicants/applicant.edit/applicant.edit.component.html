@@ -1,0 +1,31 @@
+<ng-template #modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Редактируем {{applicant.personalInfo.fullName}}</h4>
+    </div>
+    <div class="modal-body">
+        <!-- ng-content></ng-content -->
+        <form>
+            <div class="form-group">
+              <label for="InputFirstName">Имя</label>
+              <input type="text" class="form-control" id="firstNameValue" aria-describedby="firstNameLabel" placeholder="Введите имя"  [value]="applicant.personalInfo.firstName" (input)="updateName($event)">
+              <small id="firstNameLabel" class="form-text text-muted">Имя соискателя</small> <br>
+
+              <label for="InputLastName">Фамилия</label>
+              <input type="text" class="form-control" id="lastNameValue" aria-describedby="lastNameLabel" placeholder="Введите фамилию"  [value]="applicant.personalInfo.lastName" (input)="updateSurname($event)">
+              <small id="lastNameLabel" class="form-text text-muted">Фамилия соискателя</small> <br>
+
+              <label for="InputPatronymic">Отчество</label>
+              <input type="text" class="form-control" id="patronymicValue" aria-describedby="patronymicLabel" placeholder="Введите имя"  [value]="applicant.personalInfo.patronymic" (input)="updatePatronymic($event)">
+              <small id="patronymicLabel" class="form-text text-muted">Отчество соискателя</small> <br>
+
+              <label for="InputAppliedDate">Дата подачи заявки</label>
+              <input type="text" class="form-control" id="appliedDateValue" aria-describedby="appliedDateLabel" placeholder="Введите дату"  [value]="applicant.appliedDate" (input)="updateAppliedDate($event)">
+              <small id="appliedDateLabel" class="form-text text-muted">Дата подачи заявки соискателя</small> <br>
+            </div>
+          </form>        
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" (click)="save()">Обновить</button>
+        <button class="btn btn-default" (click)="dismiss()">Отмена</button>
+    </div>
+</ng-template>

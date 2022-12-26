@@ -1,0 +1,9 @@
+<div class="d-flex">
+	<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-pills" orientation="vertical">
+        <li [ngbNavItem]="link.path" *ngFor="let link of links">
+            <a ngbNavLink routerLink="." [routerLink]="link.path">{{ link.title }}</a>
+        </li>
+	</ul>
+
+	<div [ngbNavOutlet]="nav" class="ms-4"></div>
+</div>
